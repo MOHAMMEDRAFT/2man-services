@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2man Services</title>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #5b2c6f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .balance-card {
+            background: linear-gradient(135deg, #8e44ad, #5b2c6f);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .balance-title {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn-delivery {
+            background-color: #27ae60;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            text-decoration: none;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #5b2c6f;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .service-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-weight: bold;
+            color: #444;
+        }
+        .service-card span {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        2man Services
+    </div>
+
+    <div class="container">
+        <div class="balance-card">
+            <div class="balance-title">رصيد الـ Pi المتوفر</div>
+            <div class="balance-amount" id="pi-balance">متصل بـ Pi Testnet</div>
+            <div class="balance-title" id="user-name">مرحباً بك في تطبيقك المحلي</div>
+        </div>
+
+        <button class="btn-delivery" onclick="alert('تم تفعيل نظام الطلبات المباشر! اختر نوع المحل والطلب وسيتم ربطك بأقرب سائق.')">
+            🟢 طلب توصيل من محل (بقالة / صيدلية)
+        </button>
+
+        <div class="section-title">جميع الخدمات المتاحة للقرى والمدن</div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <span>🛒</span>
+                بقالة وعطارة
+            </div>
+            <div class="service-card">
+                <span>💊</span>
+                صيدليات وعلاج
+            </div>
+            <div class="service-card">
+                <span>🛠️</span>
+                صيانة وورش
+            </div>
+            <div class="service-card">
+                <span>🛺</span>
+                طلب أقرب مواصلة
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تهيئة الـ SDK المباشر لتجنب تعارض القوالب القديمة
+        try {
+            if (window.Pi) {
+                window.Pi.init({ version: "2.0", sandbox: true });
+                window.Pi.authenticate(["username"], function(p){})
+                .then(function(auth) {
+                    document.getElementById('user-name').innerText = "مرحباً بك: " + auth.user.username;
+                }).catch(function(e){ console.log(e); });
+            }
+        } catch(err) {
+            console.log("الربط يعمل في البيئة المحلية محاكاةً");
+        }
+    </script>
+</body>
+</html>
